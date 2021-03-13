@@ -1,5 +1,5 @@
 import dataDatabase,{ DataDatabase } from "../data/DataDatabase";
-import { DataInfo } from "../model/DataModels";
+import { DataInfo, rangePagination } from "../model/DataModels";
 import idGenerator, { IdGenerator } from "../service/idGenerator";
 
 
@@ -29,12 +29,18 @@ export class DataBusiness{
         }
     }
 
-    public async getList(){
+    public async getList(input:rangePagination){
+        
+        const {text, page, limit} = input
+        
+
+       
+        if(!page || !limit || !text){
+            throw new Error("without start, limit ou Text")
+        }
+
         try {
-           
-
-
-            const result = await dataDatabase.getList()
+            const result = await dataDatabase.getList(input)
             return result
 
         } catch (error) {
@@ -42,7 +48,6 @@ export class DataBusiness{
             const { statusCode, message } = error
             throw new Error(statusCode || message)
         }
-
     }
 }
 

@@ -1,5 +1,5 @@
 import knex from './connection'
-import {DataInfo} from "../model/DataModels"
+import {DataInfo, rangePagination} from "../model/DataModels"
 
 export class DataDatabase{
     protected static tableName:string = "auth"
@@ -21,11 +21,16 @@ export class DataDatabase{
             throw new Error(error.sqlMessage || error.message)
         }
     }
-    public async getList(){
+    public async getList(input:rangePagination){
+        const {page, limit, text} =input
+        let p = page - 1
        
         try {
             const result = await knex.raw(`
-            select * from ${DataDatabase.tableName};
+            select * from ${DataDatabase.tableName} 
+            where message like "%${text}%" 
+            limit ${limit} 
+            offset ${p};
 
             `)
             return result[0]

@@ -1,5 +1,6 @@
 import {Request, Response} from "express"
 import dataBusiness, {DataBusiness} from '../business/DataBusiness'
+import { rangePagination } from "../model/DataModels"
 
 export class DataController{
     constructor(
@@ -22,11 +23,13 @@ export class DataController{
 
     }
     public async getList(req:Request, res:Response){
+
+        const input:any = req.query
+
+        console.log(input)
+
         try {
-           
-
-
-            const result = await dataBusiness.getList()
+            const result = await dataBusiness.getList(input)
             res.status(200).send({result})
 
         } catch (error) {
