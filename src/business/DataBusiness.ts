@@ -28,19 +28,54 @@ export class DataBusiness{
             throw new Error(statusCode || message)
         }
     }
+    public async createListAuto(input:any){
+       
+        try {
+            const {month, day, hour, ip, cronSSDH, message} = input
+    
+            if(!month || !day || !hour || !ip || !cronSSDH || ! message){
+                throw new Error("missin input")
+            }
+            input.id = this.idGenerator.generate()
+    
+            const result = await this.dataDatabase.createList(input)
+
+            return {result}
+            
+        } catch (error) {
+            const { statusCode, message } = error
+            throw new Error(statusCode || message)
+        }
+    }
 
     public async getList(input:rangePagination){
         
-        const {text, page, limit} = input
+        const {text, page} = input
         
-
-       
-        if(!page || !limit || !text){
+        if(!page || !text){
             throw new Error("without start, limit ou Text")
         }
 
         try {
             const result = await dataDatabase.getList(input)
+            return result
+
+        } catch (error) {
+
+            const { statusCode, message } = error
+            throw new Error(statusCode || message)
+        }
+    }
+    public async getListByMonth(input:rangePagination){
+        
+        const {text, page} = input
+        
+        if(!page || !text){
+            throw new Error("without start, limit ou Text")
+        }
+
+        try {
+            const result = await dataDatabase.getListByMonth(input)
             return result
 
         } catch (error) {

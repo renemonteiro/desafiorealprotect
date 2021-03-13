@@ -21,16 +21,55 @@ export class DataDatabase{
             throw new Error(error.sqlMessage || error.message)
         }
     }
+    public async createListAuto(input:DataInfo){
+        const {id, month, day, hour, ip, cronSSDH, message} = input
+        try {
+            await knex.raw(`
+            INSERT INTO ${DataDatabase.tableName} VALUES(
+                '${id}', 
+                '${month}', 
+                '${day}',
+                '${hour}', 
+                '${ip}', 
+                '${cronSSDH}',
+                '${message}');
+            `)
+        } catch (error) {
+            throw new Error(error.sqlMessage || error.message)
+        }
+    }
     public async getList(input:rangePagination){
-        const {page, limit, text} =input
-        let p = page - 1
+        const {page, text} =input
+        const limit:number = 50
+        let pageFromNumberOne = limit *(page - 1)
        
         try {
             const result = await knex.raw(`
             select * from ${DataDatabase.tableName} 
             where message like "%${text}%" 
+            order by hour asc
             limit ${limit} 
-            offset ${p};
+            offset ${pageFromNumberOne};
+
+            `)
+            return result[0]
+        } catch (error) {
+            throw new Error(error.sqlMessage || error.message)
+        }
+    }
+    public async getListByMonth(input:rangePagination){
+        const {page, text} =input
+        const limit = 50
+        let pageFromNumberOne = limit*(page - 1)
+        
+       
+        try {
+            const result = await knex.raw(`
+            select * from ${DataDatabase.tableName} 
+            where month like "%${text}%" 
+            order by hour asc
+            limit ${limit} 
+            offset ${pageFromNumberOne};
 
             `)
             return result[0]

@@ -10,5 +10,5 @@ export interface DataInfo{
 export interface rangePagination{
     text:string,
     page:number,
-    limit:number
 }
+
