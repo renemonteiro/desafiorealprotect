@@ -1,5 +1,7 @@
 import {Request, Response} from "express"
 import dataBusiness, {DataBusiness} from '../business/DataBusiness'
+import CustomError from "../error/CustomError"
+import { rangePagination } from "../model/DataModels"
 
 export class DataController{
     constructor(
@@ -21,24 +23,26 @@ export class DataController{
         }
 
     }
+
     public async createListAuto(req:Request, res:Response){
         const  {start,stop} =req.params
+
+        const filename = "novo.log"
        
         var lineReader = require('readline').createInterface({
-            input: require('fs').createReadStream('novo.log')
+            input: require('fs').createReadStream(filename)
         });
 
         lineReader.on('line', function (line:any) {
-            let startNumber = Number(start)
-            const stopNumber = Number(stop)
-
-            console.log(startNumber,stopNumber);
-        
+            
             try {
-                if(startNumber>= stopNumber){
-                    throw new Error("stop");
-                    
+                let startNumber = Number(start)
+                const stopNumber = Number(stop)
+              
+                if(startNumber>= stopNumber ){
+                    throw new CustomError(400,"stop params can not be smaller or equal than start");
                 }
+
                 const month = line.slice(0,3)
                 const day = line.slice(4,6) 
                 const hour = line.slice(7,15)
@@ -47,11 +51,13 @@ export class DataController{
                 const message = line.slice(46)
                 
                 const input = {month, day, hour, ip, cronSSDH, message}
+                
+                // console.log(startNumber);
+                
                 dataBusiness.createListAuto(input)
-               
-                startNumber = startNumber + 1
                 console.log(line);
-    
+                
+                startNumber =+ 1
                 return res.status(200).send()
             
             } catch (error) {
@@ -62,12 +68,16 @@ export class DataController{
         });
         
     }
+
     public async getList(req:Request, res:Response){
 
         const input:any = req.query
+        console.log(input)
+
+        const newInput:rangePagination = input
 
         try {
-            const result = await dataBusiness.getList(input)
+            const result = await dataBusiness.getList(newInput)
             res.status(200).send({result})
 
         } catch (error) {
@@ -80,8 +90,9 @@ export class DataController{
     public async getListByMonth(req:Request, res:Response){
 
         const input:any = req.query
+        const newInput:rangePagination = input
         try {
-            const result = await dataBusiness.getListByMonth(input)
+            const result = await dataBusiness.getListByMonth(newInput)
             res.status(200).send({result})
 
         } catch (error) {
