@@ -7,3 +7,8 @@ export interface DataInfo{
     cronSSDH:string,
     message:string
 }
+export interface rangePagination{
+    text:string,
+    page:number,
+    limit:number
+}
