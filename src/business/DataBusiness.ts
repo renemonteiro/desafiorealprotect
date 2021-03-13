@@ -1,6 +1,8 @@
 import dataDatabase,{ DataDatabase } from "../data/DataDatabase";
 import { DataInfo, rangePagination } from "../model/DataModels";
 import idGenerator, { IdGenerator } from "../service/idGenerator";
+import CustomError from "../error/CustomError"
+
 
 
 export class DataBusiness{
@@ -15,7 +17,7 @@ export class DataBusiness{
             const {month, day, hour, ip, cronSSDH, message} = input
     
             if(!month || !day || !hour || !ip || !cronSSDH || ! message){
-                throw new Error("missin input")
+                throw new CustomError(400,"Missin inputs: month, day, hour, ip, cronSSDH, message ")
             }
             input.id = this.idGenerator.generate()
     
@@ -34,7 +36,7 @@ export class DataBusiness{
             const {month, day, hour, ip, cronSSDH, message} = input
     
             if(!month || !day || !hour || !ip || !cronSSDH || ! message){
-                throw new Error("missin input")
+                throw new CustomError(400, "Missin inputs: month, day, hour, ip, cronSSDH, message ")
             }
             input.id = this.idGenerator.generate()
     
@@ -50,10 +52,15 @@ export class DataBusiness{
 
     public async getList(input:rangePagination){
         
-        const {text, page} = input
+        const {text, page, orderBy} = input
+
         
-        if(!page || !text){
-            throw new Error("without start, limit ou Text")
+        
+        if(!page || !text || !orderBy){
+            throw new CustomError(400, "Missin inputs page, text or orderBy")
+        }
+        if(orderBy !== "day" && orderBy !== "hour"){
+            throw new CustomError(400,"orderBy")
         }
 
         try {
@@ -67,11 +74,16 @@ export class DataBusiness{
         }
     }
     public async getListByMonth(input:rangePagination){
+
         
-        const {text, page} = input
         
-        if(!page || !text){
-            throw new Error("without start, limit ou Text")
+        const {text, page, orderBy} = input
+        
+        if(!page || !text || !orderBy){
+            throw new CustomError(400,"Missin inputs page, text or orderBy")
+        }
+        if(orderBy !== "day" && orderBy !== "hour"){
+            throw new CustomError(400,"orderBy")
         }
 
         try {
