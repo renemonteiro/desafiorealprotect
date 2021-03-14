@@ -52,15 +52,18 @@ export class DataBusiness{
 
     public async getList(input:rangePagination){
         
-        const {text, page, orderBy} = input
+        const {text, page, nameColumn, order, limit} = input
 
         
         
-        if(!page || !text || !orderBy){
-            throw new CustomError(400, "Missin inputs page, text or orderBy")
+        if(!page || !text || !nameColumn || !order || !limit){
+            throw new CustomError(400, "Missin inputs page, text or nameColumn")
         }
-        if(orderBy !== "day" && orderBy !== "hour"){
-            throw new CustomError(400,"orderBy")
+        if(order !== "asc" && order !== "desc"){
+            throw new CustomError(400,"input order is asc or desc")
+        }
+        if(nameColumn !== "day" && nameColumn !== "hour"){
+            throw new CustomError(400,"nameColumn")
         }
 
         try {
@@ -77,13 +80,18 @@ export class DataBusiness{
 
         
         
-        const {text, page, orderBy} = input
+        const {text, page, nameColumn, order, limit} = input
         
-        if(!page || !text || !orderBy){
-            throw new CustomError(400,"Missin inputs page, text or orderBy")
+        
+        if(!page || !text || !nameColumn || !order || !limit){
+            throw new CustomError(400,"Missin inputs page, text or nameColumn")
         }
-        if(orderBy !== "day" && orderBy !== "hour"){
-            throw new CustomError(400,"orderBy")
+        if(order !== "asc" && order !== "desc"){
+            throw new CustomError(400,"input order is asc or desc")
+        }
+
+        if(nameColumn !== "day" && nameColumn !== "hour"){
+            throw new CustomError(400,"input nameColum is asc or desc")
         }
 
         try {
