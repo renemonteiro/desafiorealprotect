@@ -27,17 +27,17 @@ export class DataController{
     public async createListAuto(req:Request, res:Response){
         const  {start,stop} =req.params
 
-        const filename = "novo.log"
+        const filename = "auth.log"
        
         var lineReader = require('readline').createInterface({
             input: require('fs').createReadStream(filename)
         });
+        let startNumber = Number(start)
+        const stopNumber = Number(stop)
 
         lineReader.on('line', function (line:any) {
             
             try {
-                let startNumber = Number(start)
-                const stopNumber = Number(stop)
               
                 if(startNumber>= stopNumber ){
                     throw new CustomError(400,"stop params can not be smaller or equal than start");
@@ -56,8 +56,9 @@ export class DataController{
                 
                 dataBusiness.createListAuto(input)
                 console.log(line);
+                // console.log(startNumber);
                 
-                startNumber =+ 1
+                startNumber = startNumber+ 1
                 return res.status(200).send()
             
             } catch (error) {
@@ -72,7 +73,6 @@ export class DataController{
     public async getList(req:Request, res:Response){
 
         const input:any = req.query
-        console.log(input)
 
         const newInput:rangePagination = input
 

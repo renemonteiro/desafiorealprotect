@@ -39,15 +39,15 @@ export class DataDatabase{
         }
     }
     public async getList(input:rangePagination){
-        const {page, text, orderBy} =input
-        const limit:number = 50
+        const {page, text, nameColumn, order, limit} =input
+        
         let pageFromNumberOne = limit *(page - 1)
        
         try {
             const result = await knex.raw(`
             select * from ${DataDatabase.tableName} 
             where message like "%${text}%" 
-            order by ${orderBy} asc
+            order by ${nameColumn} ${order}
             limit ${limit} 
             offset ${pageFromNumberOne};
 
@@ -58,8 +58,10 @@ export class DataDatabase{
         }
     }
     public async getListByMonth(input:rangePagination){
-        const {page, text, orderBy} =input
-        const limit = 50
+        const {page, text, nameColumn, order, limit} =input
+
+        
+        
         let pageFromNumberOne = limit*(page - 1)
         
        
@@ -67,7 +69,7 @@ export class DataDatabase{
             const result = await knex.raw(`
             select * from ${DataDatabase.tableName} 
             where month like "%${text}%" 
-            order by ${orderBy} asc
+            order by ${nameColumn} ${order}
             limit ${limit} 
             offset ${pageFromNumberOne};
 

@@ -12,6 +12,9 @@ export interface DataInfo{
 export interface rangePagination{
     text:string,
     page:number,
-    orderBy:string
+    nameColumn:string,
+    order: string,
+    limit: number
+
 }
 
