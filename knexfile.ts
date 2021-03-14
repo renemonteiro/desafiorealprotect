@@ -1,31 +1,22 @@
-import dotenv from 'dotenv'
-import path from 'path'
+// Update with your config settings.
+import path from "path"
 
-dotenv.config()
 
 module.exports = {
 
-  client: "mysql",
+  development: {
+    client: "sqlite3",
     connection: {
-        host:process.env.DB_HOST,
-        port:3306,
-				// port: Number(process.env.DB_PORT || "3306"),
-        user: process.env.DB_USER,
-        password:process.env.DB_PASSWORD,
-        database: process.env.DB_NAME
+      filename: path.resolve(__dirname,'src','database', 'database.sqlite'),
     },
-    pool: {
-      min: 2,
-      max: 10
+    migrations:{
+      directory:path.resolve(__dirname, 'src', 'database', 'migrations')
     },
-    migrations: {
-      tableName: "knex_migrations",
-      extension: 'ts',
-			//path para a pasta migration
-      directory: path.resolve(__dirname,'src','data','migrations')
-    },
-    seeds:{
-			//path para a pasta seeds
-      directory: path.resolve(__dirname,'src','data','seeds')
+    seeds: {
+      directory:path.resolve(__dirname, 'src', 'database', 'seeds')
+
     }
-}
+  },
+  useNullAsDefault:true
+
+};

@@ -27,7 +27,7 @@ export class DataController{
     public async createListAuto(req:Request, res:Response){
         const  {start,stop} =req.params
 
-        const filename = "auth.log"
+        const filename = "novo23.log"
        
         var lineReader = require('readline').createInterface({
             input: require('fs').createReadStream(filename)

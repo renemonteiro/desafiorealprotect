@@ -1,4 +1,4 @@
-import dataDatabase,{ DataDatabase } from "../data/DataDatabase";
+import dataDatabase,{ DataDatabase } from "../database/DataDatabase";
 import { DataInfo, rangePagination } from "../model/DataModels";
 import idGenerator, { IdGenerator } from "../service/idGenerator";
 import CustomError from "../error/CustomError"

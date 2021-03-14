@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsc && node build/server.ts",
-    "dev": "ts-node-dev src/server.ts"
+    "dev": "ts-node-dev src/server.ts",
+    "knex:migrate":"knex --knexfile knexfile.ts migrate:latest",
+    "knex:seed":"knex --knexfile knexfile.ts seed:run"
   },
   "repository": {
     "type": "git",
@@ -27,6 +29,7 @@
     "express": "^4.17.1",
     "knex": "^0.95.2",
     "mysql": "^2.18.1",
+    "sqlite3": "^5.0.2",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
