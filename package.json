@@ -7,8 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsc && node build/server.ts",
     "dev": "ts-node-dev src/server.ts",
-    "knex:migrate":"knex --knexfile knexfile.ts migrate:latest",
-    "knex:seed":"knex --knexfile knexfile.ts seed:run"
+    "knex: init":"knex --knexfile knex init -x ts",
+    "knex: make migration":"knex --knexfile knex migrate:make migration_name -x ts",
+    "knex: migrate":"knex --knexfile knexfile.ts migrate:latest",
+    "knex: seed":"knex --knexfile knexfile.ts seed:run",
+    "knex: rollback":"knex --knexfile knexfile.ts migrate:rollback",
+    "knex: rollback--all":"knex --knexfile knexfile.ts migrate:rollback --all"
   },
   "repository": {
     "type": "git",
