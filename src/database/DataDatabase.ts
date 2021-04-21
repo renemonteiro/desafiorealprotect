@@ -2,12 +2,12 @@ import knex from './connection'
 import {DataInfo, rangePagination} from "../model/DataModels"
 
 export class DataDatabase{
-    protected static tableName:string = "auth"
+    protected static tableName:string = "auth" 
 
     public async createList(input:DataInfo){
         const {id, month, day, hour, ip, cronSSDH, message} = input
         try {
-            await knex.raw(`
+            const result = await knex.raw(`
             INSERT INTO ${DataDatabase.tableName} VALUES(
                 '${id}', 
                 '${month}', 
@@ -17,12 +17,14 @@ export class DataDatabase{
                 '${cronSSDH}',
                 '${message}');
             `)
+            return result
         } catch (error) {
             throw new Error(error.sqlMessage || error.message)
         }
     }
     public async createListAuto(input:DataInfo){
         const {id, month, day, hour, ip, cronSSDH, message} = input
+
         try {
             await knex.raw(`
             INSERT INTO ${DataDatabase.tableName} VALUES(
@@ -50,7 +52,6 @@ export class DataDatabase{
             order by ${nameColumn} ${order}
             limit ${limit} 
             offset ${pageFromNumberOne};
-
             `)
             return result
             // return result[0]
