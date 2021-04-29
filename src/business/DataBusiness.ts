@@ -30,7 +30,7 @@ export class DataBusiness{
             throw new Error(statusCode || message)
         }
     }
-    public async createListAuto(input:any){
+    public async createListAuto(input:any){ 
        
         try {
             const {month, day, hour, ip, cronSSDH, message} = input
@@ -61,6 +61,7 @@ export class DataBusiness{
         }
         if(order !== "asc" && order !== "desc"){
             throw new CustomError(400,"input order is asc or desc")
+            // throw new Error("input order is asc or desc")
         }
         if(nameColumn !== "day" && nameColumn !== "hour"){
             throw new CustomError(400,"nameColumn")

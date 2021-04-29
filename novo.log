@@ -1,0 +1,15 @@
+Nov 30 06:39:00 ip-172-31-27-153 CRON[21882]: pam_unix(cron:session): session closed for user root
+Nov 30 06:47:01 ip-172-31-27-153 CRON[22087]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 30 06:47:03 ip-172-31-27-153 CRON[22087]: pam_unix(cron:session): session closed for user root
+Nov 30 07:07:14 ip-172-31-27-153 sshd[22116]: Connection closed by 122.225.103.87 [preauth]
+Nov 30 07:07:35 ip-172-31-27-153 sshd[22118]: Connection closed by 122.225.103.87 [preauth]
+Nov 30 07:08:13 ip-172-31-27-153 sshd[22120]: Connection closed by 122.225.103.87 [preauth]
+Nov 30 07:17:01 ip-172-31-27-153 CRON[22125]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 30 07:17:01 ip-172-31-27-153 CRON[22125]: pam_unix(cron:session): session closed for user root
+Nov 30 08:17:01 ip-172-31-27-153 CRON[22172]: pam_unix(cron:session): session opened for user root by (uid=0)
+Nov 30 08:17:01 ip-172-31-27-153 CRON[22172]: pam_unix(cron:session): session closed for user root
+Nov 30 08:42:04 ip-172-31-27-153 sshd[22182]: Invalid user admin from 187.12.249.74
+Nov 30 08:42:04 ip-172-31-27-153 sshd[22182]: input_userauth_request: invalid user admin [preauth]
+Nov 30 08:42:04 ip-172-31-27-153 sshd[22182]: Received disconnect from 187.12.249.74: 11: Bye Bye [preauth]
+Nov 30 08:42:14 ip-172-31-27-153 sshd[22184]: Did not receive identification string from 187.12.249.74
+Nov 30 09:17:01 ip-172-31-27-153 CRON[22214]: pam_unix(cron:session): session opened for user root by (uid=0)

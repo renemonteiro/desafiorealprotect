@@ -15,6 +15,5 @@ export interface rangePagination{
     nameColumn:string,
     order: string,
     limit: number
-
 }
 
